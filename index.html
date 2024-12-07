@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        form label, h3 {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        input, button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #subjects {
+            margin-top: 20px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            form label, h3 {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GPA Calculator</h1>
+        <form id="gpaForm">
+            <label for="numSubjects">Number of Subjects:</label>
+            <input type="number" id="numSubjects" min="1" required>
+            <button type="button" onclick="addSubjects()">Add Subjects</button>
+            <div id="subjects"></div>
+            <button type="button" onclick="calculateGPA()">Calculate GPA</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function addSubjects() {
+            const numSubjects = document.getElementById('numSubjects').value;
+            const subjectsDiv = document.getElementById('subjects');
+            subjectsDiv.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 1; i <= numSubjects; i++) {
+                subjectsDiv.innerHTML += `
+                    <h3>Subject ${i}</h3>
+                    Marks: <input type="number" id="marks_${i}" min="0" max="100" required><br>
+                    Credits: <input type="number" id="credits_${i}" value="3" required><br>
+                `;
+            }
+        }
+
+        function getGradePoint(marks) {
+            if (marks >= 90) return 4.0;
+            else if (marks >= 85) return 4.0;
+            else if (marks >= 80) return 3.8;
+            else if (marks >= 75) return 3.4;
+            else if (marks >= 71) return 3.0;
+            else if (marks >= 68) return 2.8;
+            else if (marks >= 64) return 2.4;
+            else if (marks >= 61) return 2.0;
+            else if (marks >= 57) return 1.8;
+            else if (marks >= 53) return 1.4;
+            else if (marks >= 45) return 1.0;
+            else return 0.0;
+        }
+
+        function calculateGPA() {
+            const numSubjects = document.getElementById('numSubjects').value;
+            let totalCredits = 0;
+            let totalPoints = 0;
+
+            for (let i = 1; i <= numSubjects; i++) {
+                const marks = parseFloat(document.getElementById(`marks_${i}`).value);
+                const credits = parseFloat(document.getElementById(`credits_${i}`).value);
+                const gradePoint = getGradePoint(marks);
+
+                totalCredits += credits;
+                totalPoints += gradePoint * credits;
+            }
+
+            const gpa = totalPoints / totalCredits;
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Your GPA is: ${gpa.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
