@@ -9,8 +9,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f7f9fc;
-            color: #333;
+            background-color: #1e1e2e;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,66 +18,71 @@
         }
 
         .container {
-            background-color: #fff;
+            background-color: #282a36;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
         }
 
         h1 {
-            color: #4CAF50;
+            color: #50fa7b;
             font-size: 1.8em;
             margin-bottom: 20px;
         }
 
-        form label, h3 {
+        label, h3 {
             font-size: 1.1em;
-            color: #555;
+            color: #f8f8f2;
         }
 
         input, button {
-            width: calc(100% - 20px);
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
+            margin: 5px;
+            border: none;
             border-radius: 5px;
             font-size: 1em;
         }
 
+        input {
+            background-color: #44475a;
+            color: #f8f8f2;
+            text-align: center;
+            width: 80px;
+        }
+
         button {
-            background-color: #4CAF50;
-            color: #fff;
+            background-color: #50fa7b;
+            color: #282a36;
             cursor: pointer;
-            border: none;
-            transition: background-color 0.3s ease;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #40d878;
         }
 
-        #subjects {
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             margin-top: 20px;
+        }
+
+        .subject-box {
+            background-color: #6272a4;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
         }
 
         .result {
             margin-top: 20px;
             font-size: 1.2em;
             font-weight: bold;
-            color: #4CAF50;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5em;
-            }
-
-            form label, h3 {
-                font-size: 1em;
-            }
+            color: #50fa7b;
         }
     </style>
 </head>
@@ -86,9 +91,9 @@
         <h1>GPA Calculator</h1>
         <form id="gpaForm">
             <label for="numSubjects">Number of Subjects:</label>
-            <input type="number" id="numSubjects" min="1" required>
+            <input type="number" id="numSubjects" min="1" max="6" value="6" required>
             <button type="button" onclick="addSubjects()">Add Subjects</button>
-            <div id="subjects"></div>
+            <div class="subjects-grid" id="subjects"></div>
             <button type="button" onclick="calculateGPA()">Calculate GPA</button>
         </form>
         <div class="result" id="result"></div>
@@ -98,14 +103,17 @@
         function addSubjects() {
             const numSubjects = document.getElementById('numSubjects').value;
             const subjectsDiv = document.getElementById('subjects');
-            subjectsDiv.innerHTML = ''; // Clear previous inputs
+            subjectsDiv.innerHTML = ''; 
 
             for (let i = 1; i <= numSubjects; i++) {
-                subjectsDiv.innerHTML += `
-                    <h3>Subject ${i}</h3>
-                    Marks: <input type="number" id="marks_${i}" min="0" max="100" required><br>
-                    Credits: <input type="number" id="credits_${i}" value="3" required><br>
+                const subjectBox = document.createElement('div');
+                subjectBox.classList.add('subject-box');
+                subjectBox.innerHTML = `
+                    <h3>Sub ${i}</h3>
+                    <input type="number" id="marks_${i}" min="0" max="100" placeholder="Marks" required>
+                    <input type="number" id="credits_${i}" value="3" placeholder="Credits" required>
                 `;
+                subjectsDiv.appendChild(subjectBox);
             }
         }
 
@@ -139,9 +147,10 @@
             }
 
             const gpa = totalPoints / totalCredits;
-            const resultDiv = document.getElementById('result');
-            resultDiv.textContent = `Your GPA is: ${gpa.toFixed(2)}`;
+            document.getElementById('result').textContent = `Your GPA is: ${gpa.toFixed(2)}`;
         }
+
+        addSubjects();
     </script>
 </body>
 </html>
