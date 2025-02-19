@@ -17,6 +17,11 @@ This GPA calculator follows the **standard grading system** used in many univers
 | 45 - 52    | 1.0        |
 | 0 - 44     | 0.0        |
 
+
+## Live Demo on Netlify
+[GPA Calculator](https://s-syeda-aiman-fatima.github.io/unit-conversion-calculator/)
+
+https://symphonious-gumption-c2fbe4.netlify.app/
 ## Usage Instructions
 1. **Enter the number of subjects** in the input field.
 2. Click the **"Add Subjects"** button to generate the subject input fields.
