@@ -19,9 +19,9 @@ This GPA calculator follows the **standard grading system** used in many univers
 
 
 ## Live Demo on Netlify
-[GPA Calculator](https://s-syeda-aiman-fatima.github.io/unit-conversion-calculator/)
+[GPA Calculator](https://symphonious-gumption-c2fbe4.netlify.app/)
 
-https://symphonious-gumption-c2fbe4.netlify.app/
+
 ## Usage Instructions
 1. **Enter the number of subjects** in the input field.
 2. Click the **"Add Subjects"** button to generate the subject input fields.
